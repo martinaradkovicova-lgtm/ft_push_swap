@@ -8,6 +8,7 @@
 * [42 cursus gitbook push swap](https://42-cursus.gitbook.io/guide/2-rank-02/push_swap)
 * [42 cursus gitbook algorythms](https://42-cursus.gitbook.io/guide/2-rank-02/push_swap/algorithms#known-sorting-algorithms)
 * [42 cursus gitbook errors](https://42-cursus.gitbook.io/guide/2-rank-02/push_swap/building-the-thing#algorithm-sort-checklist)
+* [Mastering C algorythms book C(45).pdf - CD all source codes](https://github.com/ygyang1987/mastering.algorithms.with.c.src.git)
 
 1) check **program args** from user --simple --medium --complex  --adaptive --bench
     ```bash
