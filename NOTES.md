@@ -9,4 +9,15 @@
 * [42 cursus gitbook algorythms](https://42-cursus.gitbook.io/guide/2-rank-02/push_swap/algorithms#known-sorting-algorithms)
 * [42 cursus gitbook errors](https://42-cursus.gitbook.io/guide/2-rank-02/push_swap/building-the-thing#algorithm-sort-checklist)
 
+1) check **program args** from user --simple --medium --complex  --adaptive --bench
+    ```bash
+     ./push_swap --simple 5 4 3 2 1
+     ```
+     we need to use fd 2 for errors and 1 for stdout
+2) create two stacks A and B (B is empty) - two linked lists
+3) create functions for stacks instrustions (sa, sb, ss, pa, pb, ra, rb, rr, rra, rrb,
+rrr) like linked list operations
+4) create algorythms uses this instructions (--simple, --medium, --complex, --adaptive)
+5) add counting of instructions and create --bench output 
+
 
