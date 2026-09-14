@@ -18,6 +18,6 @@ typedef struct s_stack
 	t_num	*top;
 	t_num	*bottom;
 	int		size;
-} t_stack
+} t_stack;
 
 #endif

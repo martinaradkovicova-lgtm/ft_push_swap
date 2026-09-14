@@ -1,3 +1,5 @@
+#include "ft_push_swap.h"
+
 t_num *create_new_number(int num)
 {
 	t_num	*new_num;
@@ -11,11 +13,11 @@ t_num *create_new_number(int num)
 	return (new_num);
 }
 
-void create_empty_stack(t_stack *stack_a)
+t_stack create_empty_stack(t_stack *stack_a)
 {
-	stack_a.top = NULL;
-	stack_a.bottom = NULL;
-	stack_a.size = 0;
+	stack_a->top = NULL;
+	stack_a->bottom = NULL;
+	stack_a->size = 0;
 	return (stack_a);
 }
 
@@ -30,46 +32,99 @@ void push_new_number(t_stack *stack, t_num *new_num)
 	}
 	else
 	{
-		new_num->prev = stack_bottom;
+		new_num->prev = stack->bottom;
 		stack->bottom->next = new_num;
 		stack->bottom = new_num;
 	}
 	stack->size++;
 }
 
-int fill_stack_a(t_stack *stack_a, int argc, char **argv)
+int fill_stack_a(t_stack *stack_a, int argc, char **argv, int has_flag)
 {
 	int		i;
 	t_num	*new_num;
 
-	i = 1;
+	i = 1 + has_flag;
 	while (i < argc)
 	{
 		new_num = create_new_number(ft_atoi(argv[i]));
 		if (new_num == NULL)
-			return (0); //fail
+			return (0); //fail + print error
 		push_new_number(stack_a, new_num);
 		i++;
 	}
 	return (1);
 }
 
-clean_stack_memory(t_stack *stack_a)
+void clean_stack_memory(t_stack *stack)
 {
-		
+	t_num	*current_num;
+	t_num	*swap;
+
+	if (stack == NULL || stack->top == NULL)
+		return ; // + print error
+	current_num = stack->top;
+	while (current_num)
+	{
+		swap = current_num->next;
+		free(current_num);
+		current_num = swap;
+	}
+	stack->top = NULL;
+	stack->bottom = NULL;
+	stack->size = 0;
 }
+
+int args_checker(char **argv, t_stack *stack_a, t_stack *stack_b)
+{
+	int i;
+
+	i = 1;
+	if (ft_strncmp(argv[i], "--", 2) == 0)
+	{
+		if (strategy_selector(argv[i], &stack_a, &stack_b) == 1)
+		{
+			return (1); //error
+		}
+		return (0);
+	}		
+}
+
+int strategy_selector(char *flag, t_stack *stack_a, t_stack *stack_b)
+{
+	if (ft_strncmp("--simple", flag, 9) == 0)
+		//call simple algorithm ...
+	else if (ft_strncmp("--medium", flag, 9) == 0)
+		//call medium algorithm
+	else if (ft_strncmp("--complex", flag, 9) == 0)
+		//call complex algorithm
+	else if (ft_strncmp("--adaptive", flag, 9) == 0)
+		//call function which counts numbers and choose simple, medium or complex
+	else
+		return (1)//bad arg - error
+	return (0);
+}
+
 
 int main (int argc, char **argv)
 {
 	t_stack	stack_a;
-
+	t_stack stack_b;
+	int	i;
+	int has_flag;
+	
 	if (argc < 2)
-		return (0);
-	//add check other args
-	
+		return (1); //+ print error
 	create_empty_stack(&stack_a);
-	if (! fill_stack_a(&stack_a, argc, argv))
+	create_empty_stack(&stack_b);
+	i = 1;
+	has_flag = 0;
+	if (args_checker(argv, &stack_a, &stack_b) == 0)
+		has_flag = 1;
+	if (! fill_stack_a(&stack_a, argc, argv, has_flag))
+	{
 		clean_stack_memory(&stack_a); //ERROR during fill the stack
-	
+		return (1);
+	}
 	return (0);
 }
