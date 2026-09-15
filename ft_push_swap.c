@@ -79,14 +79,14 @@ void strategy_selector(char *flag, t_stack *stack_a, t_stack *stack_b)
 	(void)stack_a;//DEBUG
 	(void)stack_b;//DEBUG
 	if (ft_strncmp("--simple", flag, 9) == 0)
-		write(1, "simple", 6); //DEBUG
+		write(1, "--simple", 8); //DEBUG -> call simple algorithm
 	if (ft_strncmp("--medium", flag, 9) == 0)
-		//call medium algorithm
-	if (ft_strncmp("--complex", flag, 9) == 0)
-		//call complex algorithm
-	if (ft_strncmp("--adaptive", flag, 9) == 0)
-		write(1, "adapteive", 9);//DEBUG
-		//call function which counts numbers and choose simple, medium or complex
+		write(1, "--medium", 8); //DEBUG -> call medium algorithm
+	if (ft_strncmp("--complex", flag, 10) == 0)
+		write(1, "--complex", 9); //DEBUG//call complex algorithm
+	if (ft_strncmp("--adaptive", flag, 11) == 0)
+		write(1, "--adaptive", 10); //DEBUG -> call adaptive
+		//call adaptive function which counts numbers and choose simple, medium or complex
 }
 
 int validate_flag(char *flag)
@@ -97,9 +97,9 @@ int validate_flag(char *flag)
 		return (1);
 	else if (ft_strncmp("--medium", flag, 9) == 0)
 		return (1);
-	else if (ft_strncmp("--complex", flag, 9) == 0)
+	else if (ft_strncmp("--complex", flag, 10) == 0)
 		return (1);
-	else if (ft_strncmp("--adaptive", flag, 9) == 0)
+	else if (ft_strncmp("--adaptive", flag, 11) == 0)
 		return (1);
 	else
 		return (-1); //invalid flag
@@ -112,15 +112,22 @@ int main (int argc, char **argv)
 	int has_flag;
 	
 	if (argc < 2)
+	{
+		write(2, "[ERROR] NO ARGUMENTS\n", 21);
 		return (1); //+ print error0
+	}
 	has_flag = validate_flag(argv[1]);
 	if (has_flag == -1)
+	{
+		write(2, "[ERROR] INVALID FLAG\n", 21);
 		return (1); //+ print error
+	}
 	create_empty_stack(&stack_a);
 	create_empty_stack(&stack_b);
 	if (! fill_stack_a(&stack_a, argc, argv, has_flag))
 	{
 		clean_stack_memory(&stack_a); //ERROR during fill the stack
+		write(2, "[ERROR]\n", 8);
 		return (1);
 	}
 	if (has_flag == 1)
