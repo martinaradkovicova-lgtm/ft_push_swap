@@ -62,15 +62,13 @@ int validate_args(char **splited_args)
 	while (splited_args[i] != NULL)
 	{
 		j = 0;
+		if (splited_args[i][j] == '+' || splited_args[i][j] == '-')
+			j++;
+		if (splited_args[i][j] == '\0')
+			return (0); //invalid argument only +,- no next digit
 		while (splited_args[i][j] != '\0')
 		{
-			if ((j == 0) && (splited_args[i][j] == '+' || splited_args[i][j] == '-'))
-			{
-				j++;
-				if (splited_args[i][j] == '\0')
-					return (0); //invalid argument only +,- no next digit
-			}
-			if (ft_isdigit(splited_args[i][j]) != 1)
+			if ((splited_args[i][j] < '0') || (splited_args[i][j] > '9'))
 				return (0); //invalid argument no digit
 			j++;
 		}
@@ -85,7 +83,7 @@ int fill_stack_a(t_stack *stack_a, int argc, char **argv, int has_flag)
 	int		j;
 	t_num	*new_num;
 	char	**splited_args;
-	//+ only one string??? use split
+
 	i = 1 + has_flag;
 	while (i < argc)
 	{
@@ -113,10 +111,7 @@ void clean_stack_memory(t_stack *stack)
 	t_num	*swap;
 
 	if (stack == NULL || stack->top == NULL)
-	{
-		write(2, "[ERROR]\n", 8);
 		return ;
-	}
 	current_num = stack->top;
 	while (current_num)
 	{
@@ -182,6 +177,7 @@ int main (int argc, char **argv)
 	if ((arg_checker(argc) == 1))
 		return (1);
 	has_flag = validate_flag(argv[1]);
+	
 	if (has_flag == -1)
 		return (1);
 	create_empty_stack(&stack_a);
@@ -189,12 +185,14 @@ int main (int argc, char **argv)
 	if (fill_stack_a(&stack_a, argc, argv, has_flag) != 1)
 	{
 		clean_stack_memory(&stack_a); //ERROR during fill the stack
-		return (1);
+		return (write(2, "[ERROR]\n", 8),1);
 	}
 	if (has_flag == 1)
 		strategy_selector(argv[1], &stack_a, &stack_b);
 	else
+	{
 		//call adaptive algorithm
-	clean_stack_memory(&stack_a);
+		clean_stack_memory(&stack_a);
+	}
 	return (0);
 }
