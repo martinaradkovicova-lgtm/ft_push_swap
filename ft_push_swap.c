@@ -38,18 +38,70 @@ void push_new_number(t_stack *stack, t_num *new_num)
 	stack->size++;
 }
 
+void clean_split_memory(char **splited_args)
+{
+	int	i;
+
+	if (splited_args == NULL)
+		return ;
+	i = 0;
+	while (splited_args[i] != NULL)
+	{
+		free(splited_args[i]);
+		i++;
+	}
+	free(splited_args);
+}
+
+int validate_args(char **splited_args)
+{
+	int i;
+	int j;
+	
+	i = 0;
+	while (splited_args[i] != NULL)
+	{
+		j = 0;
+		while (splited_args[i][j] != '\0')
+		{
+			if ((j == 0) && (splited_args[i][j] == '+' || splited_args[i][j] == '-'))
+			{
+				j++;
+				if (splited_args[i][j] == '\0')
+					return (0); //invalid argument only +,- no next digit
+			}
+			if (ft_isdigit(splited_args[i][j]) != 1)
+				return (0); //invalid argument no digit
+			j++;
+		}
+		i++;
+	}
+	return (1); 
+}
+
 int fill_stack_a(t_stack *stack_a, int argc, char **argv, int has_flag)
 {
 	int		i;
+	int		j;
 	t_num	*new_num;
-
+	char	**splited_args;
+	//+ only one string??? use split
 	i = 1 + has_flag;
 	while (i < argc)
 	{
-		new_num = create_new_number(ft_atoi(argv[i]));
-		if (new_num == NULL)
-			return (0); //fail + print error
-		push_new_number(stack_a, new_num);
+		splited_args = ft_split(argv[i], ' ');
+		if (splited_args == NULL || (validate_args(splited_args) != 1))
+			return (clean_split_memory(splited_args), 0);
+		j = 0;
+		while (splited_args[j] != NULL)
+		{
+			new_num = create_new_number(ft_atoi(splited_args[j]));
+			if (new_num == NULL)
+				return (clean_split_memory(splited_args), 0);
+			push_new_number(stack_a, new_num);
+			j++;
+		}
+		clean_split_memory(splited_args);
 		i++;
 	}
 	return (1);
@@ -134,10 +186,9 @@ int main (int argc, char **argv)
 		return (1);
 	create_empty_stack(&stack_a);
 	create_empty_stack(&stack_b);
-	if (! fill_stack_a(&stack_a, argc, argv, has_flag))
+	if (fill_stack_a(&stack_a, argc, argv, has_flag) != 1)
 	{
 		clean_stack_memory(&stack_a); //ERROR during fill the stack
-		write(2, "[ERROR]\n", 8);
 		return (1);
 	}
 	if (has_flag == 1)
