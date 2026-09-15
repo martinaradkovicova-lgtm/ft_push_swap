@@ -75,21 +75,6 @@ void clean_stack_memory(t_stack *stack)
 	stack->size = 0;
 }
 
-int args_checker(char **argv, t_stack *stack_a, t_stack *stack_b)
-{
-	int i;
-
-	i = 1;
-	if (ft_strncmp(argv[i], "--", 2) == 0)
-	{
-		if (strategy_selector(argv[i], &stack_a, &stack_b) == 1)
-		{
-			return (1); //error
-		}
-		return (0);
-	}		
-}
-
 int strategy_selector(char *flag, t_stack *stack_a, t_stack *stack_b)
 {
 	if (ft_strncmp("--simple", flag, 9) == 0)
@@ -105,6 +90,21 @@ int strategy_selector(char *flag, t_stack *stack_a, t_stack *stack_b)
 	return (0);
 }
 
+int validate_flag(char *arg)
+{
+	if (ft_strncmp(arg, "--", 2) != 0)
+		return (0); //no flag
+	if (ft_strncmp(arg, "--simple", 9 == 0)
+		return (1);
+	else if (ft_strncmp("--medium", flag, 9) == 0)
+		return (1);
+	else if (ft_strncmp("--complex", flag, 9) == 0)
+		return (1);
+	else if (ft_strncmp("--adaptive", flag, 9) == 0)
+		return (1);
+	else
+		return (-1); //invalid flag
+}
 
 int main (int argc, char **argv)
 {
@@ -114,17 +114,20 @@ int main (int argc, char **argv)
 	int has_flag;
 	
 	if (argc < 2)
+		return (1); //+ print error0
+	has_flag = validate_flag(argv[1]);
+	if (has_flag == -1)
 		return (1); //+ print error
 	create_empty_stack(&stack_a);
 	create_empty_stack(&stack_b);
-	i = 1;
-	has_flag = 0;
-	if (args_checker(argv, &stack_a, &stack_b) == 0)
-		has_flag = 1;
 	if (! fill_stack_a(&stack_a, argc, argv, has_flag))
 	{
 		clean_stack_memory(&stack_a); //ERROR during fill the stack
 		return (1);
 	}
+	if (has_flag == 1)
+		strategy_selector(argv[1], &stack_a, &stack_b);
+	clean_stack_memory(&stack_a);
+	clean_stack_memory(&stack_b);
 	return (0);
 }
