@@ -13,12 +13,11 @@ t_num *create_new_number(int num)
 	return (new_num);
 }
 
-t_stack create_empty_stack(t_stack *stack_a)
+void create_empty_stack(t_stack *stack_a)
 {
 	stack_a->top = NULL;
 	stack_a->bottom = NULL;
 	stack_a->size = 0;
-	return (stack_a);
 }
 
 void push_new_number(t_stack *stack, t_num *new_num)
@@ -75,26 +74,26 @@ void clean_stack_memory(t_stack *stack)
 	stack->size = 0;
 }
 
-int strategy_selector(char *flag, t_stack *stack_a, t_stack *stack_b)
+void strategy_selector(char *flag, t_stack *stack_a, t_stack *stack_b)
 {
+	(void)stack_a;//DEBUG
+	(void)stack_b;//DEBUG
 	if (ft_strncmp("--simple", flag, 9) == 0)
-		//call simple algorithm ...
-	else if (ft_strncmp("--medium", flag, 9) == 0)
+		write(1, "simple", 6); //DEBUG
+	if (ft_strncmp("--medium", flag, 9) == 0)
 		//call medium algorithm
-	else if (ft_strncmp("--complex", flag, 9) == 0)
+	if (ft_strncmp("--complex", flag, 9) == 0)
 		//call complex algorithm
-	else if (ft_strncmp("--adaptive", flag, 9) == 0)
+	if (ft_strncmp("--adaptive", flag, 9) == 0)
+		write(1, "adapteive", 9);//DEBUG
 		//call function which counts numbers and choose simple, medium or complex
-	else
-		return (1)//bad arg - error
-	return (0);
 }
 
-int validate_flag(char *arg)
+int validate_flag(char *flag)
 {
-	if (ft_strncmp(arg, "--", 2) != 0)
+	if (ft_strncmp(flag, "--", 2) != 0)
 		return (0); //no flag
-	if (ft_strncmp(arg, "--simple", 9 == 0)
+	if (ft_strncmp("--simple", flag, 9) == 0)
 		return (1);
 	else if (ft_strncmp("--medium", flag, 9) == 0)
 		return (1);
@@ -110,7 +109,6 @@ int main (int argc, char **argv)
 {
 	t_stack	stack_a;
 	t_stack stack_b;
-	int	i;
 	int has_flag;
 	
 	if (argc < 2)
