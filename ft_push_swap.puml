@@ -1,0 +1,36 @@
+@startuml
+start
+if ((**arg_checker**(argc) == 1)) is (true) then
+        note right: if (argc < 2) print error - no arguments
+        :return (1);
+    :has_flag = **validate_flag**(argv[1]);
+    note right: checks the first argument\nlooking for the flag -- "simple", "medium", "complex", or "adaptive"\nreturn:\n1 - flag found\n0 - flag not found\n-1 - invalid flag
+
+    if (has_flag == -1) is (true) then
+        :return (1);
+        note right: The program terminates if the invalid flag is found.
+        stop
+        endif
+    :**create_empty_stack**(&stack_a);
+    :**create_empty_stack**(&stack_b);
+    endif
+    if (**fill_stack_a**(&stack_a, argc, argv, has_flag) != 1) is (true) then
+    note right:Splits aruments in one array\nvalidates arguments (only numers, no duplicity)\nif argumnets are valid, fills the stack.
+        :**clean_stack_memory**(&stack_a);
+        note right: error during stack filling - freed memory
+        :return (write(2, "[ERROR]", 8), 1);
+        note right: print error\nprogram terminates
+        stop
+    endif
+    if (has_flag == 1) is (true) then
+        :**strategy_selector**(argv[1], &stack_a, &stack_b);
+        note right: Algorithm selection based on a flag
+    else (false)
+    :**adaptive_algorithm**(&stack_a, &stack_b);
+    note right: No flag is specified\nan adaptive algorithm is selected\nand choose the most suitable one.
+    endif
+
+     :**clean_stack_memory**(&stack_a);
+     note right: clear the memory before ending the program
+stop
+@enduml
