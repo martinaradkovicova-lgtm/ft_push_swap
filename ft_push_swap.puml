@@ -1,8 +1,11 @@
+
 @startuml
 start
 if ((**arg_checker**(argc) == 1)) is (true) then
         note right: if (argc < 2) print error - no arguments
         :return (1);
+        stop
+        endif
     :has_flag = **validate_flag**(argv[1]);
     note right: checks the first argument\nlooking for the flag -- "simple", "medium", "complex", or "adaptive"\nreturn:\n1 - flag found\n0 - flag not found\n-1 - invalid flag
 
@@ -13,7 +16,6 @@ if ((**arg_checker**(argc) == 1)) is (true) then
         endif
     :**create_empty_stack**(&stack_a);
     :**create_empty_stack**(&stack_b);
-    endif
     if (**fill_stack_a**(&stack_a, argc, argv, has_flag) != 1) is (true) then
     note right:Splits aruments in one array\nvalidates arguments (only numers, no duplicity)\nif argumnets are valid, fills the stack.
         :**clean_stack_memory**(&stack_a);
