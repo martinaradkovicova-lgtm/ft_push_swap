@@ -101,6 +101,32 @@ int duplicity_checker(char **splited_args, int len)
 	return (0);
 }
 
+char *join_args(int argc, char **argv, int has_flag)
+{
+	char	*joined;
+	char	*tmp;
+	int		i;
+
+	i = 1 + has_flag;
+	joined = ft_strjoin(argv[i], " ");
+	if (joined == NULL)
+		return (NULL);
+	i++;
+	while (i < argc)
+	{
+		tmp = ft_strjoin(joined, argv[i]);
+		free(joined);
+		if (tmp == NULL)
+			return (NULL);
+		joined = ft_strjoin(tmp, " ");
+		free(tmp);
+		if (joined == NULL)
+			return (NULL);
+		i++;
+	}
+	return (joined);
+}
+
 int validate_args(char **splited_args)
 {
 	int i;
@@ -130,29 +156,27 @@ int validate_args(char **splited_args)
 int fill_stack_a(t_stack *stack_a, int argc, char **argv, int has_flag)
 {
 	int		i;
-	int		j;
+	char	*joined;
 	t_num	*new_num;
 	char	**splited_args;
 
-	i = 1 + has_flag;
-	while (i < argc)
-	{
-		splited_args = ft_split(argv[i], ' ');
-		if (splited_args == NULL || (validate_args(splited_args) != 1))
+	joined = join_args(argc, argv, has_flag);
+	if (joined == NULL)
+		return (0);
+	splited_args =  ft_split(joined, ' ');
+	free(joined);
+   	if (splited_args == NULL || (validate_args(splited_args) != 1))
+		return (clean_split_memory(splited_args), 0);
+   	i = 0;
+   	while (splited_args[i] != NULL)
+   	{
+	 	new_num = create_new_number(ft_atoi(splited_args[i]));
+	   	if (new_num == NULL)
 			return (clean_split_memory(splited_args), 0);
-		j = 0;
-		while (splited_args[j] != NULL)
-		{
-			new_num = create_new_number(ft_atoi(splited_args[j]));
-			if (new_num == NULL)
-				return (clean_split_memory(splited_args), 0);
-			push_new_number(stack_a, new_num);
-			j++;
-		}
-		clean_split_memory(splited_args);
-		i++;
-	}
-	return (1);
+	   	push_new_number(stack_a, new_num);
+	   	i++;
+   	}
+	return (clean_split_memory(splited_args), 1);
 }
 
 void clean_stack_memory(t_stack *stack)
@@ -242,6 +266,7 @@ int main (int argc, char **argv)
 	else
 	{
 		//call adaptive algorithm
+		write(1, "Adaptive alg\n", 13); //DEBUG
 		clean_stack_memory(&stack_a);
 	}
 	return (0);
