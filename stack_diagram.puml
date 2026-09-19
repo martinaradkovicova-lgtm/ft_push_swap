@@ -19,7 +19,7 @@ n... <-- "last (bottom)" : prev
 "last (bottom)" --> " NULL" : next
 }
 
-stack swap_stack {
+stack "swap_stack\nbefore\t\tafter" {
 node "   NULL" #white
 node "(first) 5" #red
 node "(second) 14" #yellow
@@ -33,19 +33,19 @@ node "NULL   " #white
 "(last) 8" --> "NULL   " : next
 
 node "   NULL " #white
-node 14 #yellow
-node 5 #red
-node 8 #grey
+node "14 (first)" #yellow
+node "5 (second)" #red
+node "8 (last)" #grey
 node " NULL   " #white
-"   NULL " <-- 14 : prev
-14 --> 5 : next
-5-->14 : prev 
-5 --> 8 : next
-5 <-- 8 : prev
-8 --> " NULL   " : next
+"   NULL " <-- "14 (first)" : prev
+"14 (first)" --> "5 (second)": next
+"5 (second)" --> "14 (first)" : prev 
+"5 (second)" --> "8 (last)" : next
+"5 (second)" <-- "8 (last)" : prev
+"8 (last)" --> " NULL   " : next
 }
 
-stack rotate_stack {
+stack "rotate_stack\nbefore\t\tafter" {
 node "(first) 6" #CornFlowerBlue
 node "(second) 15" #pink
 node "(last) 54" #Thistle
@@ -57,20 +57,20 @@ node " NULL " #white
 "(second) 15" --> "(last) 54" : next
 "(second) 15" <-- "(last) 54" : prev
 "(last) 54" --> "  NULL  " : next
-node 15 #pink
-node 54 #Thistle
-node 6 #CornFlowerBlue
+node "15 (first)" #pink
+node "54 (second)" #Thistle
+node "6 (last)" #CornFlowerBlue
 node " NULL  " #white
 node "  NULL " #white
-" NULL  " <--15 : next
-15 --> 54 : next
-54 --> 15 : prev
-54 --> 6 : next
-6-->"  NULL " : next
-54 <-- 6 : prev
+" NULL  " <-- "15 (first)" : next
+"15 (first)" --> "54 (second)" : next
+"54 (second)" --> "15 (first)" : prev
+"54 (second)" --> "6 (last)" : next
+"6 (last)" -->"  NULL " : next
+"54 (second)" <-- "6 (last)" : prev
 }
 
-stack reverse_stack {
+stack "reverse_stack\nbefore\t\tafter" {
 node "(first) 100" #gold
 node "(second) 4" #magenta
 node "(last) 42" #Cyan
@@ -83,21 +83,21 @@ node " NULL    " #white
 "(second) 4" <-- "(last) 42" : prev
 "(last) 42" --> " NULL    " : next
 node "   NULL    " #white
-node 4 #magenta
-node 100 #gold
-node 42 #cyan
+node "4 (last)" #magenta
+node "100 (second)" #gold
+node "42 (first)" #cyan
 node "    NULL   " #white
 
-"   NULL    " <-- 42 : prev
-42 --> 100 : next
-42 --> 100 : prev
-100 --> 4 : next
-4 <-- 100 : prev
-4 -->"    NULL   " : next
+"   NULL    " <-- "42 (first)" : prev
+"42 (first)" --> "100 (second)" : next
+"42 (first)" --> "100 (second)" : prev
+"100 (second)" --> "4 (last)" : next
+"4 (last)" <-- "100 (second)" : prev
+"4 (last)" -->"    NULL   " : next
 
 }
 
-stack "push_stack\tsrc_stack\t\t\tdest_stack" {
+stack "push_stack\n\tsource_stack\t\t\t\t\tdest_stack / empty_dest" {
 node "  NULL   " #white
 node "(first) 1000" #DeepPink
 node "(second) 357" #DeepSkyBlue
@@ -112,24 +112,30 @@ node "    NULL  " #white
 "(last) 11" --> "    NULL  " :next
 
 node "    NULL    " #white
-node 357 #DeepSkyBlue
-node 11 #Lime
+node "357 (first)" #DeepSkyBlue
+node "11 (last)" #Lime
 node "    NULL     " #white
-"    NULL    " <-- 357 :prev
-357 --> 11 : next
-11 --> 357 : prev
-11 --> "    NULL     " : next
+"    NULL    " <-- "357 (first)" :prev
+"357 (first)" --> "11 (last)" : next
+"11 (last)" --> "357 (first)" : prev
+"11 (last)" --> "    NULL     " : next
 
 node "     NULL    " #white
-node 1000 #DeepPink
-node 750 #Violet
-node 2 #Bisque
+node "1000 (first)" #DeepPink
+node "750 (second)" #LightSteelBlue
+node "2 (last)" #Bisque
 node "    NULL      " #white
-"     NULL    " <-- 1000 :prev
-1000 --> 750 : next
-750 --> 1000 : prev
-750 --> 2 : next
-2 --> 750 : prev
-2 --> "    NULL      " : next
+"     NULL    " <-- "1000 (first)" :prev
+"1000 (first)" --> "750 (second)" : next
+"750 (second)" --> "1000 (first)" : prev
+"750 (second)" --> "2 (last)" : next
+"2 (last)" --> "750 (second)" : prev
+"2 (last)" --> "    NULL      " : next
+
+node "  NULL    " #white
+node "1000(first)" #DeepPink
+node "    NULL" #white
+"  NULL    " <-- "1000(first)" :prev
+"1000(first)" --> "    NULL" : next
 }
 @enduml
