@@ -251,7 +251,6 @@ int main (int argc, char **argv)
 	if ((arg_checker(argc) == 1))
 		return (1);
 	has_flag = validate_flag(argv[1]);
-	
 	if (has_flag == -1)
 		return (1);
 	create_empty_stack(&stack_a);
@@ -265,9 +264,8 @@ int main (int argc, char **argv)
 		strategy_selector(argv[1], &stack_a, &stack_b);
 	else
 	{
-		//call adaptive algorithm
-		write(1, "Adaptive alg\n", 13); //DEBUG
-		clean_stack_memory(&stack_a);
+		write(1, "Adaptive alg\n", 13); //DEBUG- call adaptive algorithm
 	}
+	clean_stack_memory(&stack_a);
 	return (0);
 }

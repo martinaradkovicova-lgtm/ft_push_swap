@@ -1,0 +1,57 @@
+@startuml
+stack stack {
+node NULL #white
+node "first (top)" #LightBlue
+node second #LightGreen
+node 3 #Orange
+node "last (bottom)" #salmon
+node " NULL" #white
+NULL <-- "first (top)" : prev
+"first (top)" --> second : next
+"first (top)" <-- second : prev
+second --> 3 : next
+second <-- 3 : prev
+3 --> "last (bottom)" : next
+3 <-- "last (bottom)" : prev
+"last (bottom)" --> " NULL" : next
+}
+
+stack swap_stack {
+node "(first) 5" #red
+node "(second) 14" #yellow
+node "(last) 8" #grey
+"(first) 5" --> "(second) 14" : next
+"(first) 5" <-- "(second) 14" : prev
+"(second) 14" --> "(last) 8" : next
+"(second) 14" <-- "(last) 8" : prev
+node 14 #yellow
+node 5 #red
+node 8 #grey
+14 --> 5 : next
+5-->14 : prev 
+5 --> 8 : next
+5 <-- 8 : prev
+}
+
+stack rotate_stack {
+node "(first) 6" #blue
+node "(second) 15" #pink
+node "(last) 54" #green
+node "  NULL  " #white
+node " NULL " #white
+" NULL " <-- "(first) 6"
+"(first) 6" <--> "(second) 15"
+"(second) 15" <--> "(last) 54"
+"(last) 54" --> "  NULL  "
+node 15 #pink
+node 54 #green
+node 6 #blue
+node " NULL  " #white
+node "  NULL " #white
+" NULL  " <--15
+15<-->54
+6-->"  NULL "
+54<-->6
+}
+
+@enduml
