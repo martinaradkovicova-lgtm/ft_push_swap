@@ -1,4 +1,5 @@
 #include "ft_push_swap.h"
+#include <stdio.h>
 
 t_num *create_new_number(int num)
 {
@@ -200,10 +201,10 @@ void clean_stack_memory(t_stack *stack)
 
 void strategy_selector(char *flag, t_stack *stack_a, t_stack *stack_b)
 {
-	(void)stack_a;//DEBUG
+	double	disorder;
 	(void)stack_b;//DEBUG
 	if (ft_strncmp("--simple", flag, 9) == 0)
-		write(1, "--simple", 8); //DEBUG -> call simple algorithm
+		write(1, "--simple", 8); //DEBUG -> call medium algorithm
 	if (ft_strncmp("--medium", flag, 9) == 0)
 		write(1, "--medium", 8); //DEBUG -> call medium algorithm
 	if (ft_strncmp("--complex", flag, 10) == 0)
@@ -211,6 +212,8 @@ void strategy_selector(char *flag, t_stack *stack_a, t_stack *stack_b)
 	if (ft_strncmp("--adaptive", flag, 11) == 0)
 		write(1, "--adaptive", 10); //DEBUG -> call adaptive
 		//call adaptive function which counts numbers and choose simple, medium or complex
+	disorder = compute_disorder(stack_a); 
+	printf("disorder = %f\n", disorder); //DEBUG
 }
 
 int validate_flag(char *flag)

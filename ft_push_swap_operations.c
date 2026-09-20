@@ -70,13 +70,13 @@ void reverse_rotate_stack(t_stack *stack)
 
 	if (stack == NULL || stack->top == NULL || stack->top->next == NULL)
 		return ;
-	bottom = stack_bottom;
+	bottom = stack->bottom;
 	stack->bottom = bottom->prev;
 	stack->bottom->next = NULL;
 
 	bottom->next = stack->top;
 	stack->top->prev = bottom;
-	stak->top = bottom;
+	stack->top = bottom;
 	stack->top->prev = NULL;
 }
 

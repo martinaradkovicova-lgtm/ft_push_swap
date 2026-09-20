@@ -20,4 +20,5 @@ typedef struct s_stack
 	int		size;
 } t_stack;
 
+double compute_disorder(t_stack *stack_a);
 #endif
