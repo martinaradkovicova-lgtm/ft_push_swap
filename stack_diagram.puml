@@ -1,6 +1,18 @@
 @startuml
 
-title Stak operations
+caption © Martina Radkovičová - mradkovi@student.42prague.com | ft_push_swap 2026
+
+skinparam {
+caption {
+    FontSize = 22;
+    FontColor Navy
+}
+title {
+    FontSize = 38;
+}
+}
+
+title Stak operations - ft_push_swap
 
 stack stack {
 node NULL #white
