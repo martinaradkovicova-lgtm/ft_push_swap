@@ -1,6 +1,5 @@
 #include "ft_push_swap.h"
 #include <stdio.h>
-
 t_num *create_new_number(int num)
 {
 	t_num	*new_num;
@@ -201,19 +200,18 @@ void clean_stack_memory(t_stack *stack)
 
 void strategy_selector(char *flag, t_stack *stack_a, t_stack *stack_b)
 {
-	double	disorder;
-	(void)stack_b;//DEBUG
+	(void)stack_b;
+		printf("Disorder %f:", compute_disorder(stack_a)); 
 	if (ft_strncmp("--simple", flag, 9) == 0)
-		write(1, "--simple", 8); //DEBUG -> call medium algorithm
+		simple_alg(stack_a, stack_b);
 	if (ft_strncmp("--medium", flag, 9) == 0)
 		write(1, "--medium", 8); //DEBUG -> call medium algorithm
 	if (ft_strncmp("--complex", flag, 10) == 0)
 		write(1, "--complex", 9); //DEBUG//call complex algorithm
 	if (ft_strncmp("--adaptive", flag, 11) == 0)
 		write(1, "--adaptive", 10); //DEBUG -> call adaptive
-		//call adaptive function which counts numbers and choose simple, medium or complex
-	disorder = compute_disorder(stack_a); 
-	printf("disorder = %f\n", disorder); //DEBUG
+		//call adaptive function which counts numbers and choose simple, medium or complex 
+
 }
 
 int validate_flag(char *flag)
@@ -254,6 +252,7 @@ int main (int argc, char **argv)
 	if ((arg_checker(argc) == 1))
 		return (1);
 	has_flag = validate_flag(argv[1]);
+	
 	if (has_flag == -1)
 		return (1);
 	create_empty_stack(&stack_a);
@@ -267,8 +266,9 @@ int main (int argc, char **argv)
 		strategy_selector(argv[1], &stack_a, &stack_b);
 	else
 	{
-		write(1, "Adaptive alg\n", 13); //DEBUG- call adaptive algorithm
+		//call adaptive algorithm
+		write(1, "Adaptive alg\n", 13); //DEBUG
+		clean_stack_memory(&stack_a);
 	}
-	clean_stack_memory(&stack_a);
 	return (0);
 }
