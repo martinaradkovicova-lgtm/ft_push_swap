@@ -1,0 +1,36 @@
+@startuml
+skinparam {
+ActivityBackgroundColor LightGreen;
+ActivityDiamondBackgroundColor yellow;
+ActivityFontSize 18;
+ActivityBorderThickness 2
+title {
+FontSize 32
+}
+}
+title Algorithm for sorting three numbers
+
+if ( stack_a == NULL || stack_a->size < 3) is (true) then
+    :return; <<#salmon>>
+    stop
+else (false)
+:a = stack_a->top->value;
+:b = stack_a->top->next_value;
+:c = stack_a->bottom->value;
+endif
+if ((a > b) && (b > c)) is (true) then
+    :**sa**(stack_a);
+    :**rra**(stack_a);
+else if ((a < b) && (b > c) && (a < c)) is (true)
+    :**rra**(stack_a);
+    :**sa**(stack_a);
+else if ((a < b) && (b > c) && (a > c)) is (true)
+    :**rra**(stack_a);
+else if ((a > b) && (b < c) && (a < c)) is (true)
+    :**sa**(stack_a);
+else if ((a > b) && (b < c) && (a > c)) is (true)
+    :**ra**(stack_a);
+
+endif
+stop
+@enduml
