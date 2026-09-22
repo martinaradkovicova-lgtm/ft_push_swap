@@ -1,6 +1,9 @@
 @startuml
 
 skinparam {
+StackBorderThickness 2
+NodeBorderThickness 1
+NodeFontSize 16
     legend {
         FontSize 20
         BackgroundColor SnowWhite
