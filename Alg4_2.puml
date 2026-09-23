@@ -17,10 +17,10 @@ legend
     |= Stack |= Disorder|= Order       |= Operations        |
     | A | 0.000000      | (a > b) (b < c) (c < d) | **(sa)** |
     | B | 0.166667      | (a > b) (b < c) (c > d) (b < d) | (sa) (pb) (sa) (ra) (pa)|
-    | C | 0.166667      | (a < b) (b < c) (c > d) (b < d) | (rra) (pb) (rra) (pa) (ra) or  |
-    | D | 0.333333      | (a < b) (b < c) (c > d) (b > d) | (pb) (rra) (pb) (sa) or **(ra)**              | |
-    | E | 0.333333      | (a < b) (b > c) (c < d) (b > d) | (rra) (sa) (rra)             |
-    | F | 0.500000      | (a < b) (b > c) (c > d) (b > d) | (sa) (rra) (pb) (ra) (pa)    |
+    | C | 0.166667      | (a < b) (b > c) (c < d) (b < d) | (rra) (rra)(pb)(ra) (pa)|
+    | D | 0.333333      | (a < b) (b < c) (c > d) (b > d) | **(rra)**              | |
+    | E | 0.333333      | (a < b) (b > c) (c < d) (b > d) | (rra)(rra)(pb)(sa)(pa)             |
+    | F | 0.500000      | (a < b) (b > c) (c > d) (b > d) | (rra)(pb)(rra)(sa)(pa)|
 endlegend
 
 stack stack_a {
