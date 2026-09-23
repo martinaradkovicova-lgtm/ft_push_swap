@@ -14,13 +14,13 @@ NodeFontSize 16
 }
 title Possible permutations of four numbers (4!) (2/4) 
 legend
-    |= Stack |= Disorder|= Order       |= Operations        |
-    | A | 0.000000      | (a > b) (b < c) (c < d) | **(sa)** |
-    | B | 0.166667      | (a > b) (b < c) (c > d) (b < d) | (sa) (pb) (sa) (ra) (pa)|
-    | C | 0.166667      | (a < b) (b > c) (c < d) (b < d) | (rra) (rra)(pb)(ra) (pa)|
-    | D | 0.333333      | (a < b) (b < c) (c > d) (b > d) | **(rra)**              | |
-    | E | 0.333333      | (a < b) (b > c) (c < d) (b > d) | (rra)(rra)(pb)(sa)(pa)             |
-    | F | 0.500000      | (a < b) (b > c) (c > d) (b > d) | (rra)(pb)(rra)(sa)(pa)|
+    |= Stack |= Disorder|= Operations        |
+    | A | 0.000000      |(sa) |
+    | B | 0.166667      |(sa) (pb) (sa) (ra) (pa)|
+    | C | 0.166667      |(rra) (rra)(pb)(ra) (pa)|
+    | D | 0.333333      |(rra)             | |
+    | E | 0.333333      |(rra)(rra)(pb)(sa)(pa)             |
+    | F | 0.500000      |(rra)(pb)(rra)(sa)(pa)|
 endlegend
 
 stack stack_a {
