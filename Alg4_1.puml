@@ -16,11 +16,11 @@ title Possible permutations of four numbers (4!) (1/4)
 legend
     |= Stack |= Disorder|= Operations        |
     | A | 0.000000      |Ascending sorted |
-    | B | 0.166667      |(pb) (sa) (ra) (pa) or (pb) (rra) (sa) (pa)|
+    | B | 0.166667      |(pb) (rra) (sa) (pa)|
     | C | 0.166667      |(pb) (sa) (pa)  |
     | D | 0.333333      |(pb) (rra) (pa)                | |
     | E | 0.333333      |(pb) (rra) (pa)            |
-    | F | 0.500000      |(pb) (ra) (sa) (pa) or (pb) (sa) (rra) (pa)    |
+    | F | 0.500000      |(pb) (sa) (rra) (pa)    |
 endlegend
 
 stack stack_a {
