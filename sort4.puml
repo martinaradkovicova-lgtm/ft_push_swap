@@ -45,9 +45,11 @@ else if (minimum_idx == 2) is (true) then
 else if(minimum_idx == 3) is (true) then
     :rra(stack_a);
 endif
+if (compute_disorder(stack_a) > 0.000000) is (true) then
 :pb(stack_a, stack_b);
 :sort_three(stack_a);
 :pa(stack_b, stack_a);
+endif
 
 stop
 @enduml
