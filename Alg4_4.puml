@@ -1,0 +1,153 @@
+@startuml
+
+skinparam {
+StackBorderThickness 2
+NodeBorderThickness 1
+NodeFontSize 16
+    legend {
+        FontSize 20
+        BackgroundColor SnowWhite
+    }
+    title {
+    FontSize 30
+    }
+}
+title Possible permutations of four numbers (4!) (4/4) 
+legend
+    |= Stack |= Disorder|= Order       |= Operations        |
+    | A | 0.500000      | (a > b) (b < c) (c < d) (b < d) |(ra) |
+    | B | 0.666667      | (a > b) (b < c) (c > d) (b < d) |(ra) (pb) (sa) (pa)|
+    | C | 0.666667      | (a > b) (b > c) (c < d) (b < d) |(rra) (rra)(pb)(rra) (pa)|
+    | D | 0.833333      | (a > b) (b < c) (c > d) (b > d)| (rra) (pb) (sa) (pa)| |
+    | E | 0.833333      | (a > b) (b > c) (c < d) (b > d) |(rra)(rra)(pb)(sa)(ra)            |
+    | F | 1.000000      | (a > b) (b > c) (c > d) (b > d) | (rra)(pb)(rra)(sa)(pa)|
+endlegend
+
+stack stack_a {
+node null as n1_null #white
+node a as a #white
+node b as b #white
+node c as c #white
+node d as d #white
+node null as n3_null #white
+n1_null <-- a : prev
+a <-- b : prev
+a --> b : next
+b <-- c : prev
+b --> c : next
+c --> d : next
+c <-- d : prev
+d --> n3_null : next
+}
+
+
+stack A {
+node null as a1_null #white
+node "1" as a2 #Gold
+node "2" as a3 #Magenta
+node "3" as a4 #turquoise
+node "4" as a1 #Yellow
+node null as a3_null #white
+a1_null <-- a1
+a1 <-- a2 
+a1 --> a2
+a2 <-- a3
+a2 --> a3
+a3 <-- a4
+a3 --> a4
+a4 --> a3_null
+}
+
+stack B {
+node null as b1_null #white
+node "1" as b2 #Gold
+node "2" as b4 #Magenta
+node "4" as b1 #Yellow
+node "3" as b3 #turquoise
+node null as b3_null #white
+b1_null <-- b1 
+b1 <-- b2
+b1 --> b2
+b2 <-- b3
+b2 --> b3
+b3 <-- b4
+b3 --> b4
+b4 --> b3_null
+}
+
+stack C {
+node null as c1_null #white
+node "1" as c3 #Gold
+node "3" as c4 #turquoise
+node "2" as c2 #Magenta
+node "4" as c1 #Yellow
+node null as c3_null #white
+c1_null <-- c1
+c1 <-- c2
+c1 --> c2
+c2 <-- c3
+c2 --> c3
+c3 --> c4
+c3 <-- c4
+c4 --> c3_null
+}
+
+stack D {
+node null as d1_null #white
+node "1" as d4 #Gold
+node "3" as d3 #turquoise
+node "4" as d1 #Yellow
+node "2" as d2 #Magenta
+node null as d3_null #white
+d1_null <-- d1
+d1 <-- d2
+d1 --> d2
+d2 <-- d3
+d2 --> d3
+d3 --> d4
+d3 <-- d4
+d4 --> d3_null
+}
+
+stack E {
+node null as e1_null #white
+node "1" as e3 #Gold
+node "4" as e1 #Yellow
+node "2" as e4 #Magenta
+node "3" as e2 #turquoise
+node null as e3_null #white
+e1_null <-- e1
+e1 <-- e2
+e1 --> e2
+e2 <-- e3
+e2 --> e3
+e3 --> e4
+e3 <-- e4
+e4 --> e3_null
+}
+
+stack F {
+node null as f1_null #white
+node "1" as f4 #Gold
+node "4" as f1 #Yellow
+node "3" as f2 #turquoise
+node "2" as f3 #Magenta
+node null as f3_null #white
+f1_null <-- f1
+f1 <-- f2
+f1 --> f2
+f2 <-- f3
+f2 --> f3
+f3 --> f4
+f3 <-- f4
+f4 --> f3_null
+}
+
+stack stack_b {
+node null as x1_null #white
+node "min." as x1 #white
+node null as x3_null #white
+x1_null <-- x1
+
+x1 --> x3_null : next
+}
