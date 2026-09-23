@@ -142,12 +142,3 @@ f3 --> f4
 f3 <-- f4
 f4 --> f3_null
 }
-
-stack stack_b {
-node null as x1_null #white
-node "min." as x1 #white
-node null as x3_null #white
-x1_null <-- x1
-f4 --> x1
-x1 --> x3_null : next
-}
