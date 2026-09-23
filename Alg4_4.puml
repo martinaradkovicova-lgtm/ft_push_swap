@@ -15,12 +15,12 @@ NodeFontSize 16
 title Possible permutations of four numbers (4!) (4/4) 
 legend
     |= Stack |= Disorder|= Operations        |
-    | A | 0.500000      |(sa) (pb) (ra) (pb) |
-    | B | 0.666667      |(sa) (pb) (rra) (sa) (pa)|
+    | A | 0.500000      |(sa) (pb) (ra) (pa) |
+    | B | 0.666667      |(sa) (pb) (sa) (rra) (pa)|
     | C | 0.666667      |(rra) (rra) (pb) (rra) (pa)|
-    | D | 0.833333      |(rra) (pb) (sa) (pa)| |
+    | D | 0.833333      |(rra) (pb) (ra) (pa)| |
     | E | 0.833333      |(rra) (rra) (pb) (sa) (ra)            |
-    | F | 1.000000      |(rra) (pb) (rra) (sa) (pa)|
+    | F | 1.000000      |(rra) (pb) (sa) (rra) (pa)|
 endlegend
 
 stack stack_a {
@@ -141,13 +141,4 @@ f2 --> f3
 f3 --> f4
 f3 <-- f4
 f4 --> f3_null
-}
-
-stack stack_b {
-node null as x1_null #white
-node "min." as x1 #white
-node null as x3_null #white
-x1_null <-- x1
-
-x1 --> x3_null : next
 }
