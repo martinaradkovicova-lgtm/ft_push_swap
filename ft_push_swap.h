@@ -36,6 +36,8 @@ void push_stack_top(t_stack *src, t_stack *dest);
 void pa(t_stack *stack_b, t_stack *stack_a);
 void pb(t_stack *stack_a, t_stack *stack_b);
 void sort_three(t_stack *stack_a);
+void sort_four(t_stack *stack_a, t_stack *stack_b);
 void simple_alg(t_stack *stack_a, t_stack *stack_b);
 double compute_disorder (t_stack *stack_a);
+void sort_five(t_stack *stack_a, t_stack *stack_b);
 #endif

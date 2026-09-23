@@ -3,15 +3,14 @@
 
 void simple_alg(t_stack *stack_a, t_stack *stack_b)
 {
-	(void)stack_b;
 	if (stack_a == NULL || stack_b == NULL)
 		return;
 	if (stack_a->size == 3)
-	{
 		sort_three(stack_a);
-	}
     else if (stack_a->size == 4)
 		sort_four(stack_a, stack_b);
+	else if (stack_a->size == 5)
+		sort_five(stack_a, stack_b);
 }
 
 void sort_three(t_stack *stack_a)
@@ -82,7 +81,64 @@ void sort_four(t_stack *stack_a, t_stack *stack_b)
 	}
 	else if (minimum_idx == 3)
 		rra(stack_a);
-	pb(stack_a, stack_b);
-	sort_three(stack_a);
-	pa(stack_b, stack_a);
+	if (compute_disorder(stack_a) > 0.000000)
+	{
+		pb(stack_a, stack_b);
+		sort_three(stack_a);
+		pa(stack_b, stack_a);
+	}
+}
+
+int five_minimum_index(t_stack *stack_a)
+{
+	int a;
+	int b;
+	int c;
+	int d;
+	int e;
+
+	a = stack_a->top->value;
+	b = stack_a->top->next->value;
+	c = stack_a->top->next->next->value;
+	d = stack_a->bottom->prev->value;
+	e = stack_a->bottom->value;
+	if ((a < b) && (a < c) && (a < d) && (a < e))
+		return (0);
+	else if ((b < a) && (b < c) && (b < d) && (b < e))
+		return (1);
+	else if ((c < a) && (c < b) && (c < d) && (c < e))
+		return (2);
+	else if ((d < a) && (d < b) && (d < c) && (d < e))
+		return (3);
+	else 
+		return (4);
+}
+
+void sort_five(t_stack *stack_a, t_stack *stack_b)
+{
+	int minimum_idx;
+	
+	if (stack_a == NULL || stack_b == NULL)
+		return ;
+	minimum_idx = five_minimum_index(stack_a);
+	if (minimum_idx == 1)
+		sa(stack_a);
+	else if (minimum_idx == 2)
+	{
+		ra(stack_a);
+		ra(stack_a);
+	}
+	else if (minimum_idx == 3)
+	{
+		rra(stack_a);
+		rra(stack_a);
+	}
+	else if (minimum_idx == 4)
+		rra(stack_a);
+	if (compute_disorder(stack_a) > 0.000000)
+	{
+		pb(stack_a, stack_b);
+		sort_four(stack_a, stack_b);
+		pa(stack_b, stack_a);
+	}
 }

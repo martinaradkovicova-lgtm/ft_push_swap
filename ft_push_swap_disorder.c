@@ -1,4 +1,4 @@
-#include "ft_push_swap.h"
+ #include "ft_push_swap.h"
 #include <stdio.h>
 
 double compute_disorder (t_stack *stack_a)
@@ -14,7 +14,7 @@ double compute_disorder (t_stack *stack_a)
 		return (0.00);
 	}
 	mistakes = 0;
-	printf("\nsize = %i\n", stack_a->size); //DEBUG
+//	printf("\nsize = %i\n", stack_a->size); //DEBUG
 	total_pairs = (stack_a->size * (stack_a->size - 1)) / 2;
 	i = stack_a->top;
 	while (i != NULL)
