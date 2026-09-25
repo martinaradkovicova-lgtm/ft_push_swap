@@ -43,4 +43,6 @@ void sort_five(t_stack *stack_a, t_stack *stack_b);
 int find_minimum(t_stack *stack);
 void push_minimum(t_stack *Stack_a, t_stack *Stack_b, int min_pos);
 void selection_sort(t_stack *Stack_a, t_stack *Stack_b);
+int	count_operations(int op_index);
+void print_op_counting();
 #endif

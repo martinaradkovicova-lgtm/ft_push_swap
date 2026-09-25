@@ -1,23 +1,31 @@
 #include "ft_push_swap.h"
 #include <stdio.h>
-void	count_operations(int op_index)
+
+int	count_operations(int op_index)
 {
 	static int	op_counter[11];
 	int	i;
 	
-	op_counter[10] = {0};
-	if (op_counter < 0)
+	if (op_index < 0)
 	{
 		i = 0;
 		while (i < 11)
 		{
-			op_couner[i] = 0;
+			op_counter[i] = 0;
 			i++;
 		}
 		return (0);
 	}
-	op_counter[op_index]++;
-	return (op_counter[op_index]);
+	if (op_index >= 100 && op_index <= 110)
+	{
+		return (op_counter[op_index - 100]);
+	}
+	if (op_index >= 0 && op_index <= 10)
+	{
+		op_counter[op_index]++;
+		return (op_counter[op_index]);
+	}
+	return(op_counter[op_index]);
 }
 
 void swap_stack(t_stack *stack)
@@ -34,7 +42,7 @@ void sa(t_stack *stack_a)
 {
 	swap_stack(stack_a);
 	write(1, "sa\n", 3);
-	printf("SA: %d\n", count_operations(0);
+   	count_operations(0);
 }
 
 void sb(t_stack *stack_b)
@@ -167,4 +175,19 @@ void pb(t_stack *stack_a, t_stack *stack_b)
 	push_stack_top(stack_a, stack_b);
 	write(1, "pb\n", 3);
 	count_operations(10);
+}
+
+void print_op_counting()
+{
+	printf("\n\nsa(%d)\n", count_operations(100));
+	printf("sb(%d)\n", count_operations(101));
+	printf("ss(%d)\n", count_operations(102));
+	printf("ra(%d)\n", count_operations(103));
+	printf("rb(%d)\n", count_operations(104));
+	printf("rr(%d)\n", count_operations(105));
+	printf("rra(%d)\n", count_operations(106));
+	printf("rrb(%d)\n", count_operations(107));
+	printf("rrr(%d)\n", count_operations(108));
+	printf("pa(%d)\n", count_operations(109));
+	printf("pb(%d)\n", count_operations(110));
 }

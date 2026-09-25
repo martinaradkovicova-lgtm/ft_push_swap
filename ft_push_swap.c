@@ -269,5 +269,6 @@ int main (int argc, char **argv)
 		write(1, "Adaptive alg\n", 13); //DEBUG
 		clean_stack_memory(&stack_a);
 	}
+	   print_op_counting();
 	return (0);
 }
