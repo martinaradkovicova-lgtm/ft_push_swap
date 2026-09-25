@@ -51,7 +51,7 @@ void selection_sort(t_stack *stack_a, t_stack *stack_b)
 {
 	int min_position;
 	
-	while (stack_a->size > 5)
+	while (stack_a->size > 5 && compute_disorder(stack_a) > 0.000000)
 	{
 		min_position = find_minimum(stack_a);
 		push_minimum(stack_a, stack_b, min_position);
