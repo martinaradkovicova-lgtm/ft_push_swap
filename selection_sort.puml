@@ -1,0 +1,66 @@
+@startuml
+skinparam {
+ActivityBackgroundColor LightGreen;
+ActivityDiamondBackgroundColor yellow;
+ActivityFontSize 16;
+ActivityBorderThickness 2
+title {
+FontSize 32
+}
+}
+partition "find_minimum(t_stack *stack)" {
+start
+:current_num = stack->top;
+note right: Current number is the first number on the stack
+:minimum = current_num->value;
+note right: We set the current numerical value\nas the minimum value.
+:min_position = 0;
+note right: index of minimum
+    while (current_num != NULL)
+        if (current_num->value < minimum) is (true) then
+            :minimum = current_num->value;
+            :min_position = i;
+        endif
+            :current_num = current_num->next;
+            :i++;
+            note right: Index (position) counter
+    endwhile
+if ((stack->size / 2) < min_position)
+    :min_position = (stack->size - min_position) * (-1);
+    note right: We find the midpoint of the stack (size / 2).\nIf the minimum is closer to the **bottom of the stack**,\nwe return the distance\nfrom the end of the stack (a **negative** value).
+endif
+:return (min_position);
+note right: If the number is at the **midpoint** or closer to the **top of the stack**,\nwe return the (a **positive** value) distance from the top of the stack.
+stop
+}
+
+partition "push_minimum(t_stack *stack_a, t_stack *stack_b, int min_position)" {
+start
+if (min_position < 0) is (true) then
+    while (min_position < 0)
+        :**rra**(stack_a);
+        :min_position++;
+    endwhile
+else (false)
+    while (min_position > 0)
+        :**ra**(stack_a);
+        :min_pos--;
+    endwhile
+endif
+:**pb**(stack_a, stack_b);
+stop
+}
+
+partition "selection_sort(t_stack *stack_a, t_stack *stack_b)"{
+start
+    while ((stack_a->size > 5) && (compute_disorder(stack_a) > 0.000000))
+        :min_position = **find_minimum**(stack_a);
+        :**push_minimum**(stack_a, stack_b, min_position);
+    endwhile
+    :**sort_five**(stack_a, stack_b);
+    while (stack_b->size > 0)
+        :**pa**(stack_b, stack_a);
+    endwhile
+stop
+}
+@enduml
