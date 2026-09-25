@@ -8,6 +8,7 @@ title {
 FontSize 32
 }
 }
+title Simple algorithm (O(n2)) - selection sort
 partition "find_minimum(t_stack *stack)" {
 start
 :current_num = stack->top;
