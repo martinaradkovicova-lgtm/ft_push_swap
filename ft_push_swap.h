@@ -40,4 +40,7 @@ void sort_four(t_stack *stack_a, t_stack *stack_b);
 void simple_alg(t_stack *stack_a, t_stack *stack_b);
 double compute_disorder (t_stack *stack_a);
 void sort_five(t_stack *stack_a, t_stack *stack_b);
+int find_minimum(t_stack *stack);
+void push_minimum(t_stack *Stack_a, t_stack *Stack_b, int min_pos);
+void selection_sort(t_stack *Stack_a, t_stack *Stack_b);
 #endif

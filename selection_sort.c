@@ -8,8 +8,8 @@ int find_minimum(t_stack *stack)
 	t_num	*current_num;
 
 	current_num = stack->top;
-	minimum = corrent_num->value;
-	min_pos = 0;
+	minimum = current_num->value;
+	min_position = 0;
 	i = 0;
 	while (current_num != NULL)
 	{
@@ -26,13 +26,13 @@ int find_minimum(t_stack *stack)
 	return (min_position);
 }
 
-void push_minimum(t_stack *Stack_a, t_stack *Stack_b, int min_pos)
+void push_minimum(t_stack *stack_a, t_stack *stack_b, int min_pos)
 {
-	if (ft_is_negative(min_pos))
+	if (min_pos < 0)
 	{
 		while (min_pos < 0)
 		{
-			rra(Stack_a);
+			rra(stack_a);
 			min_pos++;
 		}
 	}
@@ -40,26 +40,26 @@ void push_minimum(t_stack *Stack_a, t_stack *Stack_b, int min_pos)
 	{
 		while (min_pos > 0)
 		{
-			ra(Stack_a);
+			ra(stack_a);
 			min_pos--;
 		}
 	}
-	pb(Stack_a, Stack_b);
+	pb(stack_a, stack_b);
 }
 
-void selection_sort(t_stack *Stack_a, t_stack *Stack_b)
+void selection_sort(t_stack *stack_a, t_stack *stack_b)
 {
 	int min_position;
 	
-	while (Stack_a->size > 5)
+	while (stack_a->size > 5)
 	{
-		min_position = find_minimum(Stack_a);
-		push_minimum(Stack_a, Stack_b, min_position);
+		min_position = find_minimum(stack_a);
+		push_minimum(stack_a, stack_b, min_position);
 	}
-	sort_five(Stack_a);
-	while (Stack_b->size > 0)
+	sort_five(stack_a,stack_b);
+	while (stack_b->size > 0)
 	{
-		pa(Stack_b, Stack_a);
+		pa(stack_b, stack_a);
 	}
 }
 
