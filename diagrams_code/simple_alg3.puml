@@ -1,0 +1,38 @@
+@startuml
+skinparam {
+ActivityBackgroundColor LightGreen;
+ActivityDiamondBackgroundColor yellow;
+ActivityFontSize 16;
+ActivityBorderThickness 2
+title {
+FontSize 32
+}
+}
+
+title ft_push_swap - simple algoithm 3/3
+
+
+partition "void    insertion_sort(t_stack *stack_a, t_stack *stack_b)" {
+start
+    if (stack_a->size > 0)
+        :pb(stack_a, stack_b);
+        note right: We begin by moving the first two numbers onto stack B.
+    endif
+    if (stack_a->size > 0)
+        :pb(stack_a, stack_b);
+    endif
+    while (stack_a->size > 0)
+        :position = find_beast_cost(stack_a, stack_b);
+        note right: We iterate through the entire stack A\nand find the number that is most suitable to move\n(requiring the least cost to move).
+        :push_beast(stack_a, stack_b, position);
+        note right: This function performs all the operations necessary\nto move and insert the selected number\nfrom stack A into stack B at the correct position.
+    endwhile
+    :align_stack_b(stack_b);
+    note right: After moving all numbers from stack A to stack B,\nwe simply sort stack A in descending order\n(top->value = maximum).
+    while (stack_b->size > 0)
+        :pa(stack_b, stack_a);
+        note right: We put all the numbers back into stack A.\nStack A is now sorted in ascending order.
+    endwhile
+stop
+}
+@enduml

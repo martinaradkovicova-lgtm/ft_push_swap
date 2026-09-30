@@ -1,0 +1,140 @@
+@startuml
+skinparam {
+ActivityBackgroundColor LightGreen;
+ActivityDiamondBackgroundColor yellow;
+ActivityFontSize 16;
+ActivityBorderThickness 2
+title {
+FontSize 32
+}
+}
+partition "int find_maximum_position(t_stack *stack_b, int *maximum, int *minimum)" {
+start
+    :current = stack_b->top;
+    :*maximum = current->value;
+    :*minimum = current->value;
+    :maximum_position = 0;
+    note right: maximum is now first value(stack_b->top->value)\nbut In the next step, we will go through the entire stack\nand if another value is higher,\nthe maximum is updated to its position and value.
+    :i = 0;
+while (current != NULL)
+if (current->value > *maximum)
+    :*maximum  = current->value;
+    note right: updating the maximum to the higer value found on the stack
+    :maximum_position = i; 
+    note right: update of the maximum position
+endif
+if (current->value < *minimum)
+    :*minimum = current->value;
+    note right: updating the minimum to the lower value found on the stack
+endif
+:current = current->next;
+:i++;
+endwhile
+:return (maximum_position);
+note right: We return the current position—that is,\nthe index where the highest value in the entire stack is located.
+stop
+}
+
+partition "int find_target_position(t_stack *stack_b, int top_a_value)" {
+start
+if (stack_b == NULL || stack_b->top == NULL) is (true)
+    :return (0);
+endif
+:**find_maximum_position**(stack_b, &max, &min);
+note right:We call a function that returns the position of the maximum value in stack B,\nas well as the numerical values of the maximum (max) and minimum (min),\nsince we pass their addresses to the function.
+if (top_a_value > max || top_a_value < min)
+    :return (**find_maximum_position**(stack_a, &max, &min));
+    note right:If the first value in stack A (the top) is greater than the maximum in stack B,\nor if the first value in stack A is lower than the minimum in stack B,\nwe can move the first value in stack A to the first position in stack B.
+    stop
+endif
+    :current = stack_b->top; 
+while (current != NULL)
+    :next_node = current->next;
+    if (next_node == NULL)
+        :next_node = stack_b->top;
+        note right: stack B size is 1
+    endif
+    if ((current->value > top_a_value) && (next_node->value < top_a_value))
+        :return (i + 1);
+        note right: We have found the **target position for inserting the first element from stack A into stack B**:\nThe current numerical value in stack B is\ngreater than the first number in stack A\nand the next numerical value in stack B\nis lower than the current first value from stack A.\n(We are arranging stack B in descending order because we will be moving the elements back to stack A at the end)\n[current->value (stack B)] [**the value from stack A will be inserted here**] [current->next->value (stack B)]
+        stop
+    endif
+    :current = current->next;
+    :i++;
+    note right: the value of i is the current position in stack B
+endwhile
+:return (0);
+note right: If the next node is set to `stack_b->top` (meaning the stack has only one element),\nthe condition is never met\nand we return 0—that is, the first position in stack B.
+stop
+}
+
+partition "int cost_stack_a(t_stack *stack_a, int index)" {
+    if (index <= stack_a->size / 2)
+        :return (index);
+        note right: We determine whether the current number is located in the top or bottom part of the stack A.\nFor the top part or the middle of the stack, we return a positive value (the index)\nThis distance determines the number of required rotations and their direction.
+        stop
+    endif
+    :return (index - stack_a->size);
+    note right: For the bottom part, we return the distance from the end of the stack (a negative value).
+    stop
+}
+
+partition "int cost_stack_b(t_stack *stack_b, int value)" {
+    :target_position = **find_target_position**(stack_b, value);
+    note right: We work with the target position in stack B for the first number from stack A.\nWe determine how many operations are required to move it to stack B.\n(counting only operations for stack B).
+    if (target_position <= (stack_b->size / 2))
+        :return (target_position);
+        stop
+    endif
+    :return (target_position - stack_b->size);
+    stop
+}
+
+partition total_cost(int cost_a, int cost_b) {
+    :abs_a = cost_a;
+    :abs_b = cost_b;
+    note right: We need to work with the number of operations\n(sum two positive values—Stack A + Stack B = total cost),\nso we convert everything to absolute values.
+    if (cost_a < 0)
+        :abs_a = -cost_a;
+    endif
+    if (cost_b < 0)
+        :abs_b = -cost_b;
+    endif
+    if ((cost_a > 0 && cost_b > 0) && (cost_a < 0 && cost_b < 0))
+        if (abs_a > abs_b)
+            :return (abs_a);
+            note right: We must perform operations in the same direction\nfor both stack A and stack B.\n(We return the higher absolute value,\nbecause the operations for the lower one\nwill be performed on both stacks simultaneously.)
+            stop
+        endif
+        :return (abs_b);
+        stop
+    endif
+    :return (abs_a + abs_b);
+    note right: No operations can be performed on the stack simultaneously;\nthey proceed in the opposite direction.
+    stop
+}
+
+partition "find_beast_cost(t_stack *stack_a, t_stack *stack_b)" {
+start
+:i = 0;
+:min_cost = 2147483647;
+:current = stack_a->top;
+:position = 0;
+while (current != NULL)
+if (**total_cost**(**cost_stack_a**(stack_a, i), **cost_stack_b**(stack_b, current->value)) < min_cost)
+    :min_cost = **total_cost**(**cost_stack_a**(stack_a, i), **const_stack_b**(stack_b, current->value));
+    :position = i;
+    note right: We iterate through the entire stack\nand calculate, for each number,\nthe total number of operations required to move it to stack B.\nIf the calculated cost is lower than the previous one, we update the `min_cost` variable.
+endif
+:current = current->next;
+:i++;
+endwhile
+:return (position);
+note right: We will return the position for the clean state with the lowest number of operations (movement costs).
+stop
+}
+
+partition "void    both_rotate(t_stack *stack_a, t_stack *stack_b, int *cost_a, int *cost_b)" {
+
+}
+@enduml

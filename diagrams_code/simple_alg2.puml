@@ -1,0 +1,126 @@
+@startuml
+
+skinparam {
+ActivityBackgroundColor LightGreen;
+ActivityDiamondBackgroundColor yellow;
+ActivityFontSize 16;
+ActivityBorderThickness 2
+title {
+FontSize 32
+}
+}
+
+title ft_push_swap - simple algoithm 2/3
+partition "find_beast_cost(t_stack *stack_a, t_stack *stack_b)" {
+start
+:i = 0;
+:min_cost = 2147483647;
+:current = stack_a->top;
+:position = 0;
+while (current != NULL)
+if (**total_cost**(**cost_stack_a**(stack_a, i), **cost_stack_b**(stack_b, current->value)) < min_cost)
+    :min_cost = **total_cost**(**cost_stack_a**(stack_a, i), **const_stack_b**(stack_b, current->value));
+    :position = i;
+    note right: We iterate through the entire stack\nand calculate, for each number,\nthe total number of operations required to move it to stack B.\nIf the calculated cost is lower than the previous one, we update the `min_cost` variable.
+endif
+:current = current->next;
+:i++;
+endwhile
+:return (position);
+note right: We will return the position for the clean state with\nthe lowest number of operations (movement costs).
+stop
+}
+
+partition "void    both_rotate(t_stack *stack_a, t_stack *stack_b, int *cost_a, int *cost_b)" {
+while (*cost_a > 0 && *cost_b > 0)
+     	:**rr**(stack_a, stack_b);
+        :*cost_a -= 1;
+        :*cost_b -= 1;
+endwhile
+while (*cost_a < 0 && *cost_b < 0)
+        :**rrr**(stack_a, stack_b);
+        note right: We perform a simultaneous rotation of both stacks.\nThe number of shared rotations is determined by the stack\nrequiring fewer rotations in the same direction; for instance,\nif stack A requires three reverse rotations and stack B requires five\nonly three shared rotations are performed.
+        :*cost_a += 1;
+        :*cost_b += 1;
+endwhile
+stop
+}
+
+
+partition "void    single_rotate(t_stack *stack_a, t_stack *stack_b, int cost_a, int cost_b)"{
+start
+    while (cost_a > 0)
+        :**ra**(stack_a);
+        :cost_a--;
+    endwhile
+    while (cost_a < 0)
+        :**rra**(stack_a);
+        :cost_a++;
+    endwhile
+    while (cost_b > 0)
+        :**rb**(stack_b);
+        :cost_b--;
+    endwhile
+    while (cost_b < 0)
+        :**rrb**(stack_b);
+        :cost_b++;
+    endwhile
+stop
+}
+
+partition "void    push_beast(t_stack *stack_a, t_stack *stack_b, int possition)" {
+start    
+    :current = stack_a->top;
+    :i = 0;
+    while (i < possition)
+        :current = current->next;
+        :i++;
+    endwhile
+    :cost_a = **cost_stack_a**(stack_a, possition);
+    :cost_b = **cost_stack_b**(stack_b, current->value);
+    :**both_rotate**(stack_a, stack_b, &cost_a, &cost_b);
+    :**single_rotate**(stack_a, stack_b, cost_a, cost_b);
+    :**pb**(stack_a, stack_b);
+stop
+}
+partition "void    align_stack_b(t_stack *stack_b)" {
+start    
+    if (!stack_b || !stack_b->top)
+        :return ;
+        stop
+    endif
+    :max_pos = **find_maximum_position**(stack_b, &max, &min);
+    if (max_pos <= stack_b->size / 2)
+        while (max_pos > 0)
+            :rb(stack_b);
+            :max_pos--;
+        endwhile    
+    else
+        while (max_pos < stack_b->size)
+            :rrb(stack_b);
+            :max_pos++;
+        endwhile
+    endif
+stop
+}
+
+partition "void    insertion_sort(t_stack *stack_a, t_stack *stack_b)" {
+start
+    if (stack_a->size > 0)
+        :pb(stack_a, stack_b);
+    endif
+    if (stack_a->size > 0)
+        :pb(stack_a, stack_b);
+    endif
+    while (stack_a->size > 0)
+        :position = find_beast_cost(stack_a, stack_b);
+        :push_beast(stack_a, stack_b, position);
+    endwhile
+    :align_stack_b(stack_b);
+    while (stack_b->size > 0)
+        :pa(stack_b, stack_a);
+    endwhile
+}
+
+
+@enduml
