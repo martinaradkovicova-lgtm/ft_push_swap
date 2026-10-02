@@ -140,7 +140,7 @@ int	find_max(t_stack *stack)
 void	bring_to_top_b(t_stack *stack_b, int position)
 {
 
-	if ((stack_b->size / 2) < position)
+	if ((stack_b->size / 2) <= position)
 		position = (stack_b->size - position) * (-1);
 	if (position < 0)
 	{
