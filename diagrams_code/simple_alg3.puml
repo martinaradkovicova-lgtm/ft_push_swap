@@ -1,4 +1,5 @@
 @startuml
+@startuml
 skinparam {
 ActivityBackgroundColor LightGreen;
 ActivityDiamondBackgroundColor yellow;
@@ -28,11 +29,12 @@ start
         note right: This function performs all the operations necessary\nto move and insert the selected number\nfrom stack A into stack B at the correct position.
     endwhile
     :align_stack_b(stack_b);
-    note right: After moving all numbers from stack A to stack B,\nwe simply sort stack A in descending order\n(top->value = maximum).
+    note right: After moving all numbers from stack A to stack B\n(stack B is sorted in descending order) 
     while (stack_b->size > 0)
         :pa(stack_b, stack_a);
         note right: We put all the numbers back into stack A.\nStack A is now sorted in ascending order.
     endwhile
 stop
 }
+@enduml
 @enduml
