@@ -1,0 +1,69 @@
+@startuml
+skinparam {
+ActivityBackgroundColor LightGreen;
+ActivityDiamondBackgroundColor yellow;
+ActivityFontSize 12;
+ActivityBorderThickness 2
+title {
+FontSize 32
+}
+}
+
+partition void	"check_chunk(t_stack *stack_a, t_stack *stack_b, int chunk_start, int chunk_end)"{
+start	
+	:i = 0;
+	:j = stack_a->size;
+	while (i < j)
+		if (stack_a->top->index >= chunk_start && stack_a->top->index <= chunk_end)
+			:pb(stack_a, stack_b);
+			note right: A number whose index\nbelongs to the chunk\nis moved from stack A to stack B.
+		else
+			:ra(stack_a);
+			note right: Rotate stack to the\nnext position
+		endif
+		:i++;
+	endwhile
+stop
+}
+
+partition "int	find_max(t_stack *stack)"{
+start
+	:current_num = stack->top;
+	:max = current_num->value;
+	:max_position = 0;
+	:i = 0;
+	while (current_num != NULL)
+		if (current_num->value > max)
+			:max = current_num->value;
+			note right: We will iterate through\nall the numbers in the stack\nand find the maximum value.
+			:max_position = i;
+			note right: The position\nof the maximum\nvalue in the stack.
+		endif
+		:current_num = current_num->next;
+		:i++;
+    endwhile
+	:return (max_position);
+	note right: We return the position\nof the maximum value in the stack.
+stop
+}
+
+partition "void	bring_to_top_b(t_stack *stack_b, int position)"{
+start
+	if ((stack_b->size / 2) <= position)
+		:position = (stack_b->size - position) * (-1);
+		note right: We determine whether\nthe index is in the bottom or\ntop half of the stack and then perform\nthe necessary operations to place the\nmaximum value at the top of stack B.
+	endif
+	if (position < 0)
+		while (position < 0)
+			:rrb(stack_b);
+			:position++;
+		endwhile
+	else
+		while (position > 0)
+			:rb(stack_b);
+			:position--;
+		endwhile
+	endif
+stop
+}
+@enduml

@@ -1,0 +1,117 @@
+@startuml
+skinparam {
+ActivityBackgroundColor LightGreen;
+ActivityDiamondBackgroundColor yellow;
+ActivityFontSize 12;
+ActivityBorderThickness 2
+title {
+FontSize 32
+}
+}
+partition "void	pre_sort(t_stack *stack_a)"{
+start
+	:len = stack_a->size;
+	:temp_array = (int *)malloc(sizeof(int) * len);
+	note right:  creating a new field, where we\nput all the numbers from the stack
+	if (temp_array == NULL) is (true) then
+		:return ;
+		note right: malloc error
+		stop
+	endif
+	:curr = stack_a->top;
+	:i = 0;
+	while (curr != NULL)
+		:temp_array[i] = curr->value;
+		note right: Here, all the numbers from the stack\nare copied into the array.
+		:curr = curr->next;
+		:i++;
+	endwhile
+	:i = 0;
+	while (i < len - 1)
+		:j = 0;
+		while (j < len - i - 1)
+			if (temp_array[j] > temp_array[j + 1])
+				:ft_swap(&temp_array[j], &temp_array[j + 1]);
+				note right: we use bubble sort\nalgorighm for sorting array
+			else
+			:j++;
+			endif
+		endwhile
+		:i++;
+	endwhile
+	:ft_assign_index(temp_array, stack_a);
+	note right: the function assigns its index\nto each number in the stack
+	:free(temp_array);
+stop
+}
+
+partition "void	ft_assign_index(int *str, t_stack *stack_a)"{
+start	
+	:curr = stack_a->top;
+	while (curr != NULL)
+		:i = 0;
+		while (str[i] != curr->value)
+			:i++;
+			note right: We iterate through the entire\nascending sorted array\nuntil we find a number equal to the\ncurrent value on the stack.
+	    endwhile
+		:curr->index = i;
+		note right: We assign to the found number\nin the stack its index from the array
+		:curr = curr->next;
+    endwhile
+stop
+}
+
+partition "int	ft_sqrt(int nb)"{
+start	
+	:i = 0;
+	while (i <= 46340 && i * i < nb)
+		if (i * i == nb)
+			:return (i);
+			note right: We calculate the length of one\nsegment(chunk) in the stack\n– the square root of stack->size.
+			stop
+		endif
+		:i++;
+	endwhile
+	:return (i);
+	note right: If we do not find the square root,\nwe return the nearest value.
+stop
+}
+
+partition "void medium_alg(t_stack *stack_a, t_stack *stack_b)"{
+start	
+	if (stack_a == NULL || stack_b == NULL)
+		:return;
+	stop
+	endif
+	
+	if (compute_disorder(stack_a) == 0.000000)
+		:return;
+		note right: The array is already sorted.
+	stop
+	endif
+	:pre_sort(stack_a);
+	note right: The function creates a copy of the\nstack (array of numbers) and sorts\nthe array in ascending order. Next,\naccording to this order, it assigns\nthe correct index to the numbers\non the stack.
+	:chunk_size = ft_sqrt(stack_a->size);
+	note right: The function calculates\nthe size of a single chunk.
+	:num_chunks = (stack_a->size + chunk_size - 1) / chunk_size;
+	note right: calculation of the number\nof  chunks in the stack
+	:c = 0;
+	while (c < num_chunks)
+		:chunk_start = c * chunk_size; 
+		note right: if, for example,\nstack->size is 25\nchunk_size is 5:\n0 * 5 = 0\n1 * 5 = 5\n2 * 5 = 10\n3 * 5 = 15\n4 * 5 = 20
+		:chunk_end = chunk_start + chunk_size - 1;
+		note right: if, for example,\nstack->size is 25\nchunk_size is 5:\n0 + 5 - 1 = 4\n5 + 5 - 1 = 9\n10 + 5 - 1 = 14\n15 + 5 - 1 = 19\n20 + 5 - 1 = 24
+		:check_chunk(stack_a, stack_b, chunk_start, chunk_end);
+		note right: A number whose index\nbelongs to the chunk\nis moved from stack A to stack B.
+		:c++;
+	endwhile
+	while (stack_b->size > 0)
+		:bring_to_top_b(stack_b, find_max(stack_b));
+		note right: We find the maximum in stack B\nand place it at the first position in stack B.
+		:pa(stack_b, stack_a);
+		note right: We push the first value of Stack B(the maximum)\nonto Stack A.
+	endwhile
+stop
+}
+
+@enduml
