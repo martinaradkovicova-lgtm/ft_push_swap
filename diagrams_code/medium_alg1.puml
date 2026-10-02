@@ -8,6 +8,7 @@ title {
 FontSize 32
 }
 }
+title "ft_push_swap - medium algorithm (O(n√n))"
 partition "void	pre_sort(t_stack *stack_a)"{
 start
 	:len = stack_a->size;
