@@ -1,0 +1,63 @@
+
+@startuml
+
+skinparam {
+ActivityBackgroundColor LightGreen;
+ActivityDiamondBackgroundColor yellow;
+ActivityFontSize 12;
+ActivityBorderThickness 2
+title {
+FontSize 32
+}
+}
+title ft_push_swap - complex algorithm (O(n log n)) 
+partition "int	count_bits(t_stack *stack_a)"{
+start
+	:max_num = stack_a->size - 1;
+	:max_bits = 0;
+	while ((max_num >> max_bits) != 0)
+		:max_bits++;
+		note right: count how many bits we need
+	endwhile
+	:return (max_bits);
+stop
+}
+
+partition "void	radix_pass(t_stack *stack_a, t_stack *stack_b, int i)"{
+start	
+	:j = 0;
+	:size = stack_a->size;
+	while (j < size)
+		:num = stack_a->top->index;
+		if (((num >> i)&1) == 1)
+			:ra(stack_a);
+		else
+			:pb(stack_a, stack_b);
+		:j++;
+	    endif
+	endwhile
+	while (stack_b->size > 0)
+		:pa(stack_b, stack_a);
+	endwhile
+stop
+
+partition "void complex_alg(t_stack *stack_a, t_stack *stack_b)"{
+start
+	if (stack_a == NULL || stack_b == NULL)
+		:return;
+		stop
+	endif
+	if (compute_disorder(stack_a) == 0.000000)
+		:return;
+	stop
+	endif
+	:pre_sort(stack_a);
+	:bit_count = count_bits(stack_a);
+	:i = 0;
+	note right: sweep stack, move 1s to stack_b, keep 0s in stack_a,\nreturn all elements back from stack_b to stack_a
+	while (i < bit_count)
+		:radix_pass(stack_a, stack_b, i);
+		:i++;
+	endwhile
+stop
+@enduml
