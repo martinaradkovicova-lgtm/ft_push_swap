@@ -1,6 +1,6 @@
 This project has been created as part of the 42 curriculum by mradkovi, hpiotrow.
 
-# push-swap
+# Ft_push-swap
 ![push_swap](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/Gemini_Generated_Image_xs679cxs679cxs67.jpeg?raw=true)
 
 ## Stack operations
