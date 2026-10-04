@@ -1,5 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simple_alg_utils1.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hpiotrow <hpiotrow@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/03 12:05:29 by hpiotrow          #+#    #+#             */
+/*   Updated: 2026/10/03 18:41:40 by hpiotrow         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
+/* Scans stack_b and returns the position (0 = top) of its largest
+ * value, while also reporting the largest and smallest values seen
+ * via *maximum/*minimum - used both to locate the max for rotation
+ * and to let find_target_position know the stack's current range. */
 int	find_maximum_position(t_stack *stack_b, int *maximum, int *minimum)
 {
 	t_num	*current;
@@ -26,6 +42,12 @@ int	find_maximum_position(t_stack *stack_b, int *maximum, int *minimum)
 	return (maximum_position);
 }
 
+/* Finds where top_a_value would need to land in stack_b to keep it
+ * sorted (descending from top): if it's outside stack_b's current
+ * range, that's the max's position (it belongs right there); other-
+ * wise walks stack_b looking for the adjacent pair it sits between,
+ * wrapping past the bottom back to the top so the search covers the
+ * whole circular order. Returns 0 if stack_b is NULL or empty. */
 int	find_target_position(t_stack *stack_b, int top_a_value)
 {
 	t_num	*current;
@@ -53,6 +75,11 @@ int	find_target_position(t_stack *stack_b, int top_a_value)
 	}
 	return (0);
 }
+
+/* Converts a raw index in stack_a into a signed rotation cost: a
+ * positive value means "ra this many times", a negative value
+ * means "rra this many times" (whichever is shorter, based on
+ * which half of the stack the index falls in). */
 int	cost_stack_a(t_stack *stack_a, int index)
 {
 	if (index <= stack_a->size / 2)
@@ -60,6 +87,10 @@ int	cost_stack_a(t_stack *stack_a, int index)
 	return (index - stack_a->size);
 }
 
+/* Same idea as cost_stack_a, but for stack_b: finds where value
+ * would need to be inserted (via find_target_position) and converts
+ * that position into a signed rotation cost (positive = rb,
+ * negative = rrb). */
 int	cost_stack_b(t_stack *stack_b, int value)
 {
 	int	target_position;
@@ -70,6 +101,11 @@ int	cost_stack_b(t_stack *stack_b, int value)
 	return (target_position - stack_b->size);
 }
 
+/* Combines a stack_a rotation cost and a stack_b rotation cost into
+ * one total operation count: if both point the same direction
+ * (both positive or both negative), they can be done together via
+ * rr/rrr, so the cost is just the larger of the two; otherwise they
+ * have to be rotated independently, so the cost is their sum. */
 int	total_cost(int cost_a, int cost_b)
 {
 	int	abs_a;

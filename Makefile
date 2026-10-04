@@ -8,10 +8,11 @@ DEPFLAGS	= -MMD -MP
 SRC_DIR	= src
 OBJ_DIR	= obj
 
-SRC		= ft_push_swap.c ft_push_swap_sort.c ft_push_swap_operations.c \
-		ft_push_swap_disorder.c selection_sort.c medium_alg.c complex_alg.c \
-		adaptive_alg.c ft_put_percent_fd.c bench_output.c simple_alg.c \
-		simple_alg_utils1.c simple_alg_utils2.c
+SRC		= main.c sorting_functions_push.c medium_alg.c sorting_functions_revrotate.c \
+adaptive_alg.c pre_sort.c sorting_functions_rotate.c bench_output.c print_stack.c \
+sorting_functions_swap.c bench_output_utils.c simple_alg.c stack_functions.c \
+clean_memory.c simple_alg_utils1.c strategy_selector.c complex_alg.c simple_alg_utils2.c \
+validate_args.c compute_disorder.c sort_3_4_5.c
 
 OBJS	= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 DEPS	= $(OBJS:.o=.d)
