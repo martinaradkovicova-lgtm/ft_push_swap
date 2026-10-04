@@ -14,21 +14,21 @@ This project has been created as part of the 42 curriculum by mradkovi, hpiotrow
 
 ## Simple algorithm
 
-### sort three
+### Sort three
 ![sort_three_permutations](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/Alg3.png?raw=true)
 ![sort_three_alg](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/sort_3.png?raw=true)
 
-### sort four
+### Sort four
 ![sort_four_permutations1](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/Alg4_1.png?raw=true)
 ![sort_four_permutations2](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/Alg4_2.png?raw=true)
 ![sort_four_permutations3](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/Alg4_3.png?raw=true)
 ![sort_four_permutations4](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/Alg4_4.png?raw=true)
 ![sort_four_alg](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/sort4.png?raw=true)
 
-### sort five
+### Sort five
 ![sort_five_alg](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/sort_5.png?raw=true)
 
-### simple algorithm
+### Simple algorithm
 ![simple_alg1](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/Simple_alg1.png?raw=true)
 ![simple_alg2](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/simple_alg2.png?raw=true)
 ![simple_alg](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/simple_alg3.png?raw=true)
