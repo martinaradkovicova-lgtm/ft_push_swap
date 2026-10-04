@@ -38,4 +38,5 @@ This project has been created as part of the 42 curriculum by mradkovi, hpiotrow
 ![medium_alg2](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/medium_alg2.png?raw=true)
 
 ## Complex algorithm
+![complex_alg_binary](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/complex_alg_binary.png?raw=true)
 ![complex_alg](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/complex_alg.png?raw=true)
