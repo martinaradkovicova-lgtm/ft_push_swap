@@ -42,6 +42,8 @@ array-based time complexity:
 | `rra` | Reverse-rotate `a` down by one: the last element becomes the first. |
 | `rrb` | Reverse-rotate `b` down by one: the last element becomes the first. |
 | `rrr` | Equivalent to `rra` and `rrb` at the same time. |
+
+![stack_operations](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/operations_diagram.png?raw=true)
  
 ## Instructions
 
