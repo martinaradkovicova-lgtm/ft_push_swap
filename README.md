@@ -1,7 +1,7 @@
 *This project has been created as part of the 42 curriculum by mradkovi, hpiotrow.*
 
 # push_swap
-
+![push_swap](https://github.com/martinaradkovicova-lgtm/ft_push_swap/blob/main/diagrams_png/Gemini_Generated_Image_xs679cxs679cxs67.jpeg?raw=true)
 ## Description
 
 `push_swap` is an algorithmic project whose goal is to **sort a stack of
